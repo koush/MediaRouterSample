@@ -6,7 +6,7 @@ files to various devices.
 
 Setup:
 
-Install AllCast
+Install [AllCast](https://play.google.com/store/apps/details?id=com.koushikdutta.cast)
 
 Checkout Source:
 
