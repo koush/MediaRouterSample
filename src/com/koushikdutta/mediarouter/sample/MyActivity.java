@@ -82,7 +82,9 @@ public class MyActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MediaRouter.RouteInfo route = adapter.getItem(position).routeInfo;
+                // select the route for usage
                 route.select();
+                // send the play control request with the video uri
                 route.sendControlRequest(new Intent(MediaControlIntent.ACTION_PLAY, videoUri), new MediaRouter.ControlRequestCallback() {
                 });
             }
