@@ -16,8 +16,11 @@ public class MyActivity extends Activity {
     MediaRouter router;
     ArrayAdapter<RouteInfoWrapper> adapter;
     ListView list;
+    // trailer for fantastic four
     Uri videoUri = Uri.parse("http://download.clockworkmod.com/mediarouter/ff.mp4");
 
+    // wrap the route info for the adapter so toString returns the route name
+    // ie, roku, Apple TV, etc.
     private static class RouteInfoWrapper {
         MediaRouter.RouteInfo routeInfo;
         public RouteInfoWrapper(MediaRouter.RouteInfo routeInfo) {
@@ -30,6 +33,7 @@ public class MyActivity extends Activity {
         }
     }
 
+    // naive handling of route callbacks, and add them to the adapter.
     MediaRouter.Callback callback = new MediaRouter.Callback() {
         @Override
         public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo route) {
@@ -40,6 +44,7 @@ public class MyActivity extends Activity {
         }
     };
 
+    // cleanup the route scanner
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -52,22 +57,27 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        // create the adapter for the list
         adapter = new ArrayAdapter<RouteInfoWrapper>(this, android.R.layout.select_dialog_item, android.R.id.text1);
+
+        // start up the media router
         router = router.getInstance(this);
 
+        // add all existing routes to the adapter
         for (MediaRouter.RouteInfo route: router.getRoutes()) {
             if (route.isDefault())
                 continue;
             adapter.add(new RouteInfoWrapper(route));
         }
 
+        // scan for new routes
         MediaRouteSelector selector = new MediaRouteSelector.Builder().addControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK).build();
-
         router.addCallback(selector, callback, MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN);
 
         list = (ListView)findViewById(R.id.list);
         list.setAdapter(adapter);
 
+        // on click, start playback of trailer
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
