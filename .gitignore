@@ -1,0 +1,11 @@
+bin
+obj
+*.suo
+*.user
+.DS_Store
+xcuserdata
+.settings
+Debug
+Release
+build
+.gradle
