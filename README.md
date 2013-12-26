@@ -10,6 +10,8 @@ Install AllCast
 
 Checkout Source:
 
+```
 git clone https://github.com/koush/android-support-v7-appcompat.git
 git clone https://github.com/koush/android-support-v7-mediarouter.git
 git clone https://github.com/koush/MediaRouterSample.git
+```
