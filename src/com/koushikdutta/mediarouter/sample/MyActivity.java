@@ -61,7 +61,7 @@ public class MyActivity extends Activity {
         adapter = new ArrayAdapter<RouteInfoWrapper>(this, android.R.layout.select_dialog_item, android.R.id.text1);
 
         // start up the media router
-        router = router.getInstance(this);
+        router = MediaRouter.getInstance(this);
 
         // add all existing routes to the adapter
         for (MediaRouter.RouteInfo route: router.getRoutes()) {
@@ -85,7 +85,7 @@ public class MyActivity extends Activity {
                 // select the route for usage
                 route.select();
                 // send the play control request with the video uri
-                route.sendControlRequest(new Intent(MediaControlIntent.ACTION_PLAY, videoUri), new MediaRouter.ControlRequestCallback() {
+                route.sendControlRequest(new Intent(MediaControlIntent.ACTION_PLAY, videoUri).setType("video/mp4"), new MediaRouter.ControlRequestCallback() {
                 });
             }
         });
