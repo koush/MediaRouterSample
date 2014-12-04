@@ -71,7 +71,7 @@ public class MyActivity extends Activity {
         }
 
         // scan for new routes
-        MediaRouteSelector selector = new MediaRouteSelector.Builder().addControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK).build();
+        MediaRouteSelector selector = new MediaRouteSelector.Builder().addControlCategory("com.koushikdutta.cast.category.REMOTE_ALLCAST").build();
         router.addCallback(selector, callback, MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN);
 
         list = (ListView)findViewById(R.id.list);
@@ -85,7 +85,7 @@ public class MyActivity extends Activity {
                 // select the route for usage
                 route.select();
                 // send the play control request with the video uri
-                route.sendControlRequest(new Intent(MediaControlIntent.ACTION_PLAY, videoUri).setType("video/mp4"), new MediaRouter.ControlRequestCallback() {
+                route.sendControlRequest(new Intent(MediaControlIntent.ACTION_PLAY).setDataAndType(videoUri, "video/mp4"), new MediaRouter.ControlRequestCallback() {
                 });
             }
         });
